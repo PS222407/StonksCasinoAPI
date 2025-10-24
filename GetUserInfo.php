@@ -9,8 +9,7 @@ $db = new StonksDB();
 $credentials = json_decode(file_get_contents("php://input"));
 $row = $db->GetUserInfo($credentials->userId);
 
-if($credentials->accessToken == $row["apikey"] && $row["apikey"] != 0 && $row["banned"] == false)
-{
+if ($credentials->accessToken == $row["apikey"] && $row["apikey"] != 0 && $row["banned"] == false) {
     $result = new UserInfoResult();
     $result->result = true;
     $result->userName = $row["username"];
@@ -19,6 +18,4 @@ if($credentials->accessToken == $row["apikey"] && $row["apikey"] != 0 && $row["b
     $result->selectedSkin = $row["wpf_card_map"];
 }
 
-echo json_encode( get_object_vars($result));
-
-?>
+echo json_encode(get_object_vars($result));

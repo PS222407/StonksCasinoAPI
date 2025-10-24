@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 class UserInfoResult
 {
     public $result = false;
@@ -6,5 +7,3 @@ class UserInfoResult
     public $tokens = 0;
     public $selectedSkin = "";
 }
-
-?>

@@ -6,5 +6,3 @@ class LoginResult
     public $accessToken = 0;
     public $userId = 0;
 }
-
-?>
