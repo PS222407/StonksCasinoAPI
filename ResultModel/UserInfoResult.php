@@ -2,8 +2,8 @@
 
 class UserInfoResult
 {
-    public $result = false;
-    public $userName = "";
-    public $tokens = 0;
-    public $selectedSkin = "";
+    public bool $result = false;
+    public string $userName = "";
+    public int $tokens = 0;
+    public string $selectedSkin = "";
 }

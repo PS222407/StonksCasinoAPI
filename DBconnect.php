@@ -6,7 +6,7 @@ class StonksDB
     const USER = "root";
     const PASSWD = "";
 
-    function setAccessToken($id)
+    function setAccessToken($id): int
     {
         $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
         $timestamp = random_int(1, 99999999999999999);
@@ -18,39 +18,30 @@ class StonksDB
         return $timestamp;
     }
 
-    function UpdateUserTokens($userId, $tokens)
+    function UpdateUserTokens($userId, $tokens): void
     {
         $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
 
         $statement = $pdo->prepare("UPDATE `users` SET `token` = ? WHERE id = ?");
-
         $statement->execute([$tokens, $userId]);
     }
 
-    function GetUserAccesstoken($userId)
-    {
-        $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
-
-        $statement = $pdo->prepare("SELECT `apikey` FROM `users` WHERE `id` = ?");
-
-        $statement->execute([$userId]);
-
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-
-        return $row;
-    }
+//    function GetUserAccesstoken($userId)
+//    {
+//        $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
+//
+//        $statement = $pdo->prepare("SELECT `apikey` FROM `users` WHERE `id` = ?");
+//        $statement->execute([$userId]);
+//        return $statement->fetch(PDO::FETCH_ASSOC);
+//    }
 
     function GetUserInfo($userId)
     {
         $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
-
         $statement = $pdo->prepare("SELECT * FROM `users` WHERE `id` = ?");
-
         $statement->execute([$userId]);
 
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-
-        return $row;
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     function GetLogin($email)
@@ -61,21 +52,18 @@ class StonksDB
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
         $statement->execute();
 
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-
-        return $row;
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
-    function Logout($userId)
+    function Logout($userId): void
     {
         $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
 
         $statement = $pdo->prepare("UPDATE `users` SET `active` = 0, `apikey` = 0 WHERE `id` = ?");
-
         $statement->execute([$userId]);
     }
 
-    function AddTransaction($userId, $tokens, $sender, $tokensBefore, $tokensAfter)
+    function AddTransaction($userId, $tokens, $sender, $tokensBefore, $tokensAfter): void
     {
         $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
 
@@ -95,13 +83,9 @@ class StonksDB
         $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
 
         $statement = $pdo->prepare("SELECT `wpf_card_map` FROM `card_skins` INNER JOIN `users` ON `card_skins`.`id` = `users`.`selected_cardskin` WHERE `users`.`id` = :id");
-
         $statement->bindParam(":id", $userId, PDO::PARAM_INT);
-
         $statement->execute();
 
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-
-        return $row;
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 }

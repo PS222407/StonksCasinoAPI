@@ -2,5 +2,5 @@
 
 class Result
 {
-    public $result = false;
+    public bool $result = false;
 }

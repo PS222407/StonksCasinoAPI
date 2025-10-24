@@ -2,7 +2,7 @@
 
 class LoginResult
 {
-    public $result = 'failed';
-    public $accessToken = 0;
-    public $userId = 0;
+    public string $result = 'failed';
+    public int $accessToken = 0;
+    public int $userId = 0;
 }
